@@ -1,11 +1,14 @@
 package inventario;
 
+import unidad.Unidad;
+import unidad.UnidadDecorada;
+
 /**
  * Clase que administra la los atributos de un puñal.
  * <p>
  * La unidad recibe un aumento de fuerza pero se reduce su defensa. <br>
  */
-public class Puñal extends Item {
+public class Puñal extends UnidadDecorada {
 	/**
 	 * Modificador de fuerza. <br>
 	 */
@@ -16,12 +19,11 @@ public class Puñal extends Item {
 	private static final int MODIFICADORDEFENSA = -3;
 
 	@Override
-	public int getSumaDefensa() {
-		return MODIFICADORDEFENSA;
+	public double getDefensa() {
+		return super.getDefensa() + MODIFICADORDEFENSA;
 	}
 
-	@Override
-	public int getSumaAtaque() {
-		return MODIFICADORFUERZA;
+	public double getDaño() {
+		return super.getDaño() + MODIFICADORFUERZA;
 	}
 }

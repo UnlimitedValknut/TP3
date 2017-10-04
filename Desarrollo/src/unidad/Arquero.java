@@ -6,7 +6,7 @@ package unidad;
  * El arquero utiliza flechas para atacar. Una vez terminada sus flechas, debe
  * recargar su carcaj con un paquete de flechas. <br>
  */
-public class Arquero extends Unidad {
+public class Arquero implements Unidad {
 	/**
 	 * Puntos de vida del arquero. <br>
 	 */
@@ -24,6 +24,12 @@ public class Arquero extends Unidad {
 	 */
 	private static final int RECARGAFLECHAS = 6;
 	/**
+	 * Posicion del arquero. <br>
+	 */
+	private int posicion;
+	private double salud;
+	private double ataque;
+	/**
 	 * Cantidad de flechas que dispone el arquero en su carcaj. <br>
 	 */
 	private int flechasDisponibles;
@@ -35,7 +41,9 @@ public class Arquero extends Unidad {
 	 *            Posición del arquero. <br>
 	 */
 	public Arquero(final int posicion) {
-		super(posicion, VIDA, ATAQUE);
+		this.salud = VIDA;
+		this.ataque = ATAQUE;
+		this.posicion = posicion;
 		this.flechasDisponibles = FLECHASINICIALES;
 	}
 
@@ -60,5 +68,40 @@ public class Arquero extends Unidad {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public int getPosicion() {
+		return this.posicion;
+	}
+
+	@Override
+	public double getSalud() {
+		return this.salud;
+	}
+
+	@Override
+	public double getDaño() {
+		return this.ataque;
+	}
+
+	@Override
+	public double getDefensa() {
+		return 0;
+	}
+
+	@Override
+	public void serAtacado(double daño) {
+
+	}
+
+	@Override
+	public void cambiarPosicion(int posicionNueva) {
+		this.posicion = posicionNueva;
+	}
+
+	@Override
+	public boolean isVivo() {
+		return (this.salud != 0 ? true : false);
 	}
 }

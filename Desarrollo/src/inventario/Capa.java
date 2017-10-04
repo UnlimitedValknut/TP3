@@ -1,5 +1,6 @@
 package inventario;
 
+import unidad.Unidad;
 import unidad.UnidadDecorada;
 
 /**
@@ -12,7 +13,7 @@ public class Capa extends UnidadDecorada {
 	/**
 	 * Multiplicador de energía. <br>
 	 */
-	private static final double MULTIPLICADORENERGIA = 1;
+	private static final double MULTIPLICADORENERGIA = 2;
 	/**
 	 * Multiplicador de ataque. <br>
 	 */
@@ -23,5 +24,8 @@ public class Capa extends UnidadDecorada {
 		return super.getDaño() * MULTIPLICADORATAQUE;
 	}
 
-	// Unidad soldado = new Capa(new Soldado(2)); -- Si no existe el soldado.
+	@Override
+	public double getEnergia() {
+		return super.getEnergia() * MULTIPLICADORENERGIA;
+	}
 }
