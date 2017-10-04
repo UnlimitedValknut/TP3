@@ -44,6 +44,10 @@ public abstract class Unidad implements Combate {
 		this.salud = salud;
 	}
 
+	public Unidad(final Unidad unidad) {
+
+	}
+
 	/**
 	 * Agrega un item al inventario. <br>
 	 * 
@@ -100,7 +104,7 @@ public abstract class Unidad implements Combate {
 			multiplicadorDefensa += daño * actual.getMultiplicadorDefensa();
 		}
 		if (daño >= (multiplicadorDefensa + sumaDefensa)) {
-			this.salud -= daño + multiplicadorDefensa + sumaDefensa;
+			this.salud -= daño - (multiplicadorDefensa + sumaDefensa);
 		}
 		if (this.salud < 0) {
 			this.salud = 0;
@@ -115,5 +119,15 @@ public abstract class Unidad implements Combate {
 	 */
 	public void cambiarPosicion(final int posicionNueva) {
 		this.posicion = posicionNueva;
+	}
+
+	/**
+	 * Indica si la unidad se encuentra viva. <br>
+	 * 
+	 * @return <b>true</b> si la unidad tiene puntos de vida.<br>
+	 *         <b>false</b> si la unidad no tiene puntos de vida. <br>
+	 */
+	public boolean isVivo() {
+		return (this.salud != 0 ? true : false);
 	}
 }

@@ -48,7 +48,7 @@ public class Arquero extends Unidad {
 
 	@Override
 	public void atacar(final Unidad atacado) {
-		if (this.flechasDisponibles > 0 && distanciaValida(atacado.getPosicion())) {
+		if (this.flechasDisponibles > 0 && distanciaValida(atacado.getPosicion()) && atacado.isVivo()) {
 			atacado.serAtacado(super.getDaño());
 			this.flechasDisponibles--;
 		}

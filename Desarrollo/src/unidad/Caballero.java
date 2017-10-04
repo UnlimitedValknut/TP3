@@ -24,6 +24,12 @@ public class Caballero extends Unidad implements PocionDeAgua {
 	 */
 	private int cantidadAtaques;
 
+	/**
+	 * Crea un caballero. <br>
+	 * 
+	 * @param posicion
+	 *            Posición del caballero. <br>
+	 */
 	public Caballero(final int posicion) {
 		super(posicion, VIDA, ATAQUE);
 		this.caballoRebelde = false;
@@ -35,13 +41,13 @@ public class Caballero extends Unidad implements PocionDeAgua {
 	 */
 	@Override
 	public void usarPocionDeAgua() {
-		this.caballoRebelde = true;
+		this.caballoRebelde = false;
 		this.cantidadAtaques = 0;
 	}
 
 	@Override
 	public void atacar(final Unidad atacado) {
-		if (!this.caballoRebelde && distanciaValida(atacado.getPosicion())) {
+		if (!this.caballoRebelde && distanciaValida(atacado.getPosicion()) && atacado.isVivo()) {
 			atacado.serAtacado(super.getDaño());
 			this.cantidadAtaques++;
 			if (this.cantidadAtaques == 3) {

@@ -47,7 +47,7 @@ public class Soldado extends Unidad implements PocionDeAgua {
 
 	@Override
 	public void atacar(final Unidad atacado) {
-		if (this.energia >= 10 && distanciaValida(atacado.getPosicion())) {
+		if (this.energia >= 10 && distanciaValida(atacado.getPosicion()) && atacado.isVivo()) {
 			atacado.serAtacado(super.getDaño());
 			this.energia -= 10;
 		}

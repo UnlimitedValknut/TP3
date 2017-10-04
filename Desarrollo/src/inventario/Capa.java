@@ -1,11 +1,14 @@
 package inventario;
 
+import unidad.UnidadDecorada;
+
 /**
  * Clase que administra la los atributos de una capa.
  * <p>
  * La unidad recibe un aumento de energía pero se ve afectado en el ataque. <br>
  */
-public class Capa extends Item {
+public class Capa extends UnidadDecorada {
+
 	/**
 	 * Multiplicador de energía. <br>
 	 */
@@ -16,12 +19,9 @@ public class Capa extends Item {
 	private static final double MULTIPLICADORATAQUE = -0.2;
 
 	@Override
-	public double getMultiplicadorAtaque() {
-		return MULTIPLICADORATAQUE;
+	public double getDaño() {
+		return super.getDaño() * MULTIPLICADORATAQUE;
 	}
 
-	@Override
-	public double getMultiplicadorEnergia() {
-		return MULTIPLICADORENERGIA;
-	}
+	// Unidad soldado = new Capa(new Soldado(2)); -- Si no existe el soldado.
 }

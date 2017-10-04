@@ -33,7 +33,7 @@ public class Lancero extends Unidad {
 
 	@Override
 	public void atacar(final Unidad atacado) {
-		if (distanciaValida(atacado.getPosicion())) {
+		if (distanciaValida(atacado.getPosicion()) && atacado.isVivo()) {
 			atacado.serAtacado(super.getDaño());
 		}
 	}
