@@ -11,16 +11,16 @@ public class Lancero extends Unidad {
 	/**
 	 * Ataque del lancero. <br>
 	 */
-	private static final double ATAQUE = 25;
+	private static final int ATAQUE = 25;
 
 	/**
 	 * Crea a un lancero. <br>
-	 * 
+	 *
 	 * @param posicion
 	 *            Posición del lancero. <br>
 	 */
 	public Lancero(final int posicion) {
-		super(posicion, VIDA, ATAQUE);
+		super(ATAQUE, VIDA, posicion);
 	}
 
 	@Override
@@ -31,10 +31,10 @@ public class Lancero extends Unidad {
 		return false;
 	}
 
-	@Override
-	public void atacar(final Unidad atacado) {
+	public boolean puedeAtacar(final Unidad atacado) {
 		if (distanciaValida(atacado.getPosicion()) && atacado.isVivo()) {
-			atacado.serAtacado(super.getDaño());
+			return true;
 		}
+		return false;
 	}
 }

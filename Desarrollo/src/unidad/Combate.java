@@ -6,7 +6,7 @@ package unidad;
 public interface Combate {
 	/**
 	 * Ataca a una unidad. <br>
-	 * 
+	 *
 	 * @param atacado
 	 *            Unidad atacada. <br>
 	 */
@@ -14,7 +14,7 @@ public interface Combate {
 
 	/**
 	 * Una unidad recibe daño. <br>
-	 * 
+	 *
 	 * @param daño
 	 *            Daño recibido. <br>
 	 */
@@ -22,7 +22,7 @@ public interface Combate {
 
 	/**
 	 * Indica si la distancia para atacar a la unidad es válida. <br>
-	 * 
+	 *
 	 * @param posicion
 	 *            Posición de la unidad enemiga. <br>
 	 * @return true si es válida, false de lo contrario. <br>
