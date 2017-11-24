@@ -39,6 +39,11 @@ public class Arquero extends Unidad {
 		this.flechasDisponibles = FLECHAS_INICIALES;
 	}
 
+	public Arquero() {
+		super(ATAQUE, VIDA, 0);
+		this.flechasDisponibles = FLECHAS_INICIALES;
+	}
+
 	/**
 	 * Recarga 6 flechas al arquero.<br>
 	 */
@@ -52,7 +57,8 @@ public class Arquero extends Unidad {
 		return ATAQUE;
 	}
 
-	public boolean puedeAtacar(final Unidad atacado) {		
+	@Override
+	public boolean puedeAtacar(final Unidad atacado) {
 		if (this.flechasDisponibles > 0 && distanciaValida(atacado.getPosicion()) && atacado.isVivo()) {
 			return true;
 		}

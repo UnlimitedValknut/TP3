@@ -7,11 +7,6 @@ import unidad.Unidad;
  */
 public abstract class UnidadDecorada extends Unidad {
 	/**
-	 * Unidad decorada. <br>
-	 */
-	private Unidad unidadDecorada;
-
-	/**
 	 * Crea una unidad decorada. <br>
 	 * 
 	 * @param unidad
@@ -22,14 +17,14 @@ public abstract class UnidadDecorada extends Unidad {
 	}
 
 	public double getSalud() {
-		return unidadDecorada.getSalud();
+		return super.getSalud();
 	}
 
 	public double getDaño() {
-		return unidadDecorada.getDaño();
+		return super.getDaño();
 	}
 
 	public void cambiarPosicion(final int posicionNueva) {
-		this.unidadDecorada.cambiarPosicion(posicionNueva);
+		super.cambiarPosicion(posicionNueva);
 	}
 }

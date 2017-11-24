@@ -23,6 +23,14 @@ public class Soldado extends Unidad implements PocionDeAgua {
 	private double energia;
 
 	/**
+	 * Crea un soldado en posición cero. <br>
+	 */
+	public Soldado() {
+		super(ATAQUE, VIDA, 0);
+		this.energia = MAXIMO_ENERGIA;
+	}
+
+	/**
 	 * Crea un soldado. <br>
 	 *
 	 * @param posicion
@@ -58,5 +66,9 @@ public class Soldado extends Unidad implements PocionDeAgua {
 			return true;
 		}
 		return false;
+	}
+
+	public double getEnergia() {
+		return energia;
 	}
 }

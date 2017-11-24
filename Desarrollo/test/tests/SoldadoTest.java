@@ -1,143 +1,111 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import TP3.Soldado;
+import unidad.Soldado;
 
 public class SoldadoTest {
 
-	Soldado jose;
-	Soldado ronaldo;
-	Soldado lejano;
-	
+	private Soldado ryan;
+	private Soldado bubba;
+	private Soldado dan;
+
 	@Before
-	public void setUp() {
-		jose = new Soldado ();
-		ronaldo = new Soldado (1,0);
-		lejano = new Soldado (2,0);
+	public void iniciar() {
+		ryan = new Soldado();
+		bubba = new Soldado(1);
+		dan = new Soldado(2);
 	}
-	
-	/**
-	 * Buscamos ver si los atributos fueron bien colocados
-	 */
+
 	@Test
-	public void testeandoAtributos() {
-		
-		Assert.assertEquals( 200, jose.getSalud(), 0);
-		Assert.assertEquals( 100, jose.getEnergiaTope(), 0);
-		Assert.assertEquals( 100, jose.getEnergia(), 0);
+	public void testAtributos() {
+		assertEquals(200, ryan.getSalud(), 0);
+		assertEquals(100, ryan.getEnergia(), 0);
 	}
-	
-	/**
-	 * Buscamos ver los limites de la energia del
-	 */
+
 	@Test
-	public void testeandoLimitesEnergia() {
+	public void testLimitesEnergia() {
 		int cant = 0;
-		while(jose.atacar(ronaldo))
-			cant ++;
-		
-		Assert.assertEquals( 0, jose.getEnergia(), 0);
-		Assert.assertEquals( 10, cant, 0);
-		Assert.assertEquals( false, jose.atacar(ronaldo));
-	}
-	
-	/**
-	 * Buscamos ver los efectos del ataque del soldado
-	 */
-	@Test
-	public void testeandoAtacar() {
-		
-		Assert.assertEquals( true, jose.atacar(ronaldo));
-		
-		Assert.assertEquals( 190, ronaldo.getSalud(),0);
-		Assert.assertEquals( 90, jose.getEnergia(),0);
-	}
-	
-	
-	/**
-	 * Buscamos ver si los arqueros son capaces de atacar a
-	 * objetivos en diferentes distancias
-	 */
-	@Test
-	public void testeandoDistancias() {
-
-		Assert.assertEquals(true, jose.atacar(ronaldo));
-		Assert.assertEquals(true, ronaldo.atacar(jose));
-
-		Assert.assertEquals(false, lejano.atacar(jose));
-		Assert.assertEquals(false, jose.atacar(lejano));
-
-		Assert.assertEquals(true, lejano.atacar(ronaldo));
-		Assert.assertEquals(true, ronaldo.atacar(lejano));
-	}
-	
-	/**
-	 * Buscamos ver si el Soldado recibe da�o
-	 */
-	@Test
-	public void testeandoRecibirDanio() {
-
-			Assert.assertEquals( true, ronaldo.atacar(jose));
-			Assert.assertEquals( 190, jose.getSalud(),0);
+		while (ryan.atacar(bubba)) {
+			cant++;
+		}
+		assertEquals(0, ryan.getEnergia(), 0);
+		assertEquals(10, cant, 0);
+		assertFalse(ryan.atacar(bubba));
 	}
 
-	/**
-	 * Buscamos ver que pasa si toma agua
-	 */
 	@Test
-	public void testeandoTomarAgua() {
+	public void testAtacar() {
+		assertTrue(ryan.atacar(bubba));
+		assertEquals(190, bubba.getSalud(), 0);
+		assertEquals(90, ryan.getEnergia(), 0);
+	}
+
+	@Test
+	public void testDistancias() {
+
+		assertTrue(ryan.atacar(bubba));
+		assertTrue(bubba.atacar(ryan));
+
+		assertFalse(dan.atacar(ryan));
+		assertFalse(ryan.atacar(dan));
+
+		assertTrue(dan.atacar(bubba));
+		assertTrue(bubba.atacar(dan));
+	}
+
+	@Test
+	public void testRecibirDaño() {
+		assertTrue(bubba.atacar(ryan));
+		assertEquals(190, ryan.getSalud(), 0);
+	}
+
+	@Test
+	public void testPocionDeAgua() {
 		int cant = 0;
-		while(jose.atacar(ronaldo))
-			cant ++;
-		
-		Assert.assertEquals( 0, jose.getEnergia(), 0);
-		Assert.assertEquals( 10, cant, 0);
-		Assert.assertEquals( false, jose.atacar(ronaldo));
-		
-		jose.tomarAgua();
-		
-		Assert.assertEquals( 100, jose.getEnergia(), 0);
-	}
-	
-	/**
-	 * Buscamos ver los limites de la salud del Soldado
-	 */
-	@Test
-	public void testeandoMorir() {
-
-		for(int i = 0; i < 10; i++) {
-			Assert.assertEquals( true, jose.estaVivo());
-			ronaldo.atacar(jose);
+		while (ryan.atacar(bubba)) {
+			cant++;
 		}
+		assertEquals(0, ryan.getEnergia(), 0);
+		assertEquals(10, cant, 0);
+		assertFalse(ryan.atacar(bubba));
 
-		ronaldo.tomarAgua();
-		
-		for(int i = 0; i < 10; i++) {
-			Assert.assertEquals( true, jose.estaVivo());
-			ronaldo.atacar(jose);
-		}
-		Assert.assertEquals( false, jose.estaVivo());
+		ryan.usarPocionDeAgua();
+		Assert.assertEquals(100, ryan.getEnergia(), 0);
 	}
-	
-	/**
-	 * Buscamos ver si el Soldado puede atacar, estando muerto
-	 */
+
 	@Test
-	public void testeandoAtacarMuerto() {
+	public void testMorir() {
+		for (int i = 0; i < 10; i++) {
+			assertTrue(ryan.isVivo());
+			bubba.atacar(ryan);
+		}
+		bubba.usarPocionDeAgua();
 
-		for(int i = 0; i < 10; i++)
-			ronaldo.atacar(jose);
-
-		ronaldo.tomarAgua();
-		
-		for(int i = 0; i < 10; i++)
-			ronaldo.atacar(jose);
-
-		Assert.assertEquals( false, jose.estaVivo());
-		Assert.assertEquals( false, jose.atacar(ronaldo));
+		for (int i = 0; i < 10; i++) {
+			Assert.assertEquals(true, ryan.isVivo());
+			bubba.atacar(ryan);
+		}
+		assertFalse(ryan.isVivo());
 	}
 
+	@Test
+	public void testZombie() {
+		for (int i = 0; i < 10; i++) {
+			bubba.atacar(ryan);
+		}
+		bubba.usarPocionDeAgua();
+
+		for (int i = 0; i < 10; i++) {
+			bubba.atacar(ryan);
+		}
+		assertFalse(ryan.isVivo());
+		assertFalse(ryan.atacar(bubba));
+	}
 }

@@ -1,138 +1,104 @@
 package tests;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import TP3.Arquero;
+import unidad.Arquero;
 
 public class ArqueroTest {
 
-	Arquero oliver;
-	Arquero hawk;
-	Arquero legolas;
-	
+	private Arquero leo;
+	private Arquero lucas;
+	private Arquero guido;
+
 	@Before
-	public void setUp() {
-		oliver = new Arquero ();
-		hawk = new Arquero (3,3);
-		legolas = new Arquero (5,5);
+	public void inciar() {
+		leo = new Arquero();
+		lucas = new Arquero(3);
+		guido = new Arquero(5);
 	}
-	
-	
-	/**
-	 * Buscamos ver si los atributos fueron bien colocados
-	 */
+
 	@Test
-	public void testeandoAtributos() {
-		
-		Assert.assertEquals( 50, oliver.getSalud(), 0);
-		Assert.assertEquals( true, oliver.estaVivo());
+	public void testAtributos() {
+		assertEquals(50, leo.getSalud(), 0);
+		assertEquals(true, leo.isVivo());
 	}
-	
-	/**
-	 * Buscamos ver el limite de las flechas
-	 */
+
 	@Test
-	public void testeandoLimiteDeFlechas() {
+	public void testLimiteDeFlechas() {
 		int cant = 0;
-		while(oliver.atacar(hawk))
+		while (leo.atacar(lucas)) {
 			cant++;
-		Assert.assertEquals( 20, cant, 0);
+		}
+		assertEquals(10, cant, 0);
 	}
-	
-	/**
-	 * Buscamos ver si el arquero carga bien las flechas
-	 */
+
 	@Test
-	public void testeandoCargarFlechas() {
+	public void testCargarFlechas() {
 		int cant = 0;
-		while(oliver.atacar(hawk))
+		while (leo.atacar(lucas)) {
 			cant++;
-		Assert.assertEquals( 20, cant, 0);
-		
-		oliver.cargarFlechas();
-
-		while(oliver.atacar(hawk))
+		}
+		assertEquals(10, cant);
+		leo.recargarFlechas();
+		while (leo.atacar(guido)) {
 			cant++;
-		Assert.assertEquals( 26, cant, 0);
+		}
+		assertEquals(20, cant, 0);
 	}
-	
-	/**
-	 * Buscamos ver los efectos del ataque del arquero
-	 */
-	@Test
-	public void testeandoAtacar() {
-		Assert.assertEquals(50, hawk.getSalud(),0);
-		oliver.atacar(hawk);
-		Assert.assertEquals(45, hawk.getSalud(),0);
-	}
-	
-	/**
-	 * Buscamos ver si mi arquero recibe da�o
-	 */
-	@Test
-	public void testeandoRecibirDanio() {
 
-			Assert.assertEquals( 50, oliver.getSalud(), 0);
-			hawk.atacar(oliver);
-			Assert.assertEquals( 45, oliver.getSalud(), 0);
-	}
-	
-	/**
-	 * Buscamos ver si puede atacar sin flechas
-	 */
 	@Test
-	public void testeandoSinFlechas() {
+	public void testAtacar() {
+		assertEquals(50, lucas.getSalud(), 0);
+		leo.atacar(lucas);
+		assertEquals(45, lucas.getSalud(), 0);
+	}
+
+	@Test
+	public void testRecibirDaño() {
+		assertEquals(50, leo.getSalud(), 0);
+		lucas.atacar(leo);
+		assertEquals(45, leo.getSalud(), 0);
+	}
+
+	@Test
+	public void testSinFlechas() {
 		int cant = 0;
-		while(oliver.atacar(hawk))
+		while (leo.atacar(lucas)) {
 			cant++;
-		
-		Assert.assertEquals( 20, cant, 0);
-		Assert.assertEquals( false, oliver.atacar(hawk));
+		}
+		assertEquals(10, cant, 0);
+		assertFalse(leo.atacar(lucas));
 	}
-	
-	
-	/**
-	 * Buscamos ver si los arqueros son capaces de atacar a
-	 * objetivos en diferentes distancias
-	 */
+
 	@Test
-	public void testeandoDistancias() {
-
-		Assert.assertEquals(true, oliver.atacar(hawk));
-		Assert.assertEquals(true, hawk.atacar(oliver));
-		
-		Assert.assertEquals(true, hawk.atacar(legolas));
-		Assert.assertEquals(true, legolas.atacar(hawk));
-		
-		Assert.assertEquals(false, legolas.atacar(oliver));
-		Assert.assertEquals(false, oliver.atacar(legolas));
+	public void testDistancias() {
+		assertTrue(leo.atacar(lucas));
+		assertTrue(lucas.atacar(leo));
+		assertTrue(lucas.atacar(guido));
+		assertTrue(guido.atacar(lucas));
+		assertTrue(guido.atacar(leo));
+		assertTrue(leo.atacar(guido));
 	}
-	
-	/**
-	 * Buscamos ver si el arquero puede morir
-	 */
+
 	@Test
-	public void testeandoMorir() {
-
-		while(oliver.estaVivo())
-			hawk.atacar(oliver);
-
-		Assert.assertEquals( false, oliver.estaVivo());
+	public void testMorir() {
+		while (leo.isVivo()) {
+			lucas.atacar(leo);
+		}
+		assertFalse(leo.isVivo());
 	}
-	
-	/**
-	 * Buscamos ver si el arquero puede atacar si esta muerto
-	 */
+
 	@Test
-	public void testeandoMuertoAtaca() {
-
-		while(oliver.estaVivo())
-			hawk.atacar(oliver);
-
-		Assert.assertEquals( false, oliver.estaVivo());
-		Assert.assertEquals( false, oliver.atacar(hawk));
+	public void testZombie() {
+		while (leo.isVivo()) {
+			lucas.atacar(leo);
+		}
+		assertFalse(leo.isVivo());
+		assertFalse(leo.atacar(lucas));
 	}
-
 }

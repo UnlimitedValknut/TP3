@@ -25,6 +25,15 @@ public class Caballero extends Unidad implements PocionDeAgua {
 	private int cantidadAtaques;
 
 	/**
+	 * Crea un caballero en posición cero. <br>
+	 */
+	public Caballero() {
+		super(ATAQUE, VIDA, 0);
+		this.caballoRebelde = false;
+		this.cantidadAtaques = 0;
+	}
+
+	/**
 	 * Crea un caballero. <br>
 	 *
 	 * @param posicion

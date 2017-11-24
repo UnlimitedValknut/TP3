@@ -1,97 +1,74 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import TP3.Lancero;
+import unidad.Lancero;
 
 public class LanceroTest {
 
-	Lancero jose;
-	Lancero ronaldo;
-	Lancero lejano;
-	
+	private Lancero lanzin;
+	private Lancero lanuno;
+	private Lancero mok;
+
 	@Before
-	public void setUp() {
-		jose = new Lancero ();
-		ronaldo = new Lancero (1,0);
-		lejano = new Lancero (4,0);
-	}
-	
-	/**
-	 * Buscamos ver si los atributos fueron bien colocados
-	 */
-	@Test
-	public void testeandoAtributos() {
-		
-		Assert.assertEquals( 150, jose.getSalud(), 0);
-		Assert.assertEquals( true, jose.estaVivo());
+	public void inicar() {
+		lanzin = new Lancero();
+		lanuno = new Lancero(1);
+		mok = new Lancero(4);
 	}
 
-	/**
-	 * Test que muestra que ambos Lanceros
-	 * realizan 25 puntos de da�o, sin items
-	 * y que reciben 25 puntos de da�os,
-	 * sin items
-	 */
 	@Test
-	public void testeandoDanio() {
-		jose.atacar(ronaldo);
-		Assert.assertEquals(125, ronaldo.getSalud(),0);
-		
-		ronaldo.atacar(jose);
-		Assert.assertEquals(125, jose.getSalud(),0);
+	public void testAtributos() {
+		assertEquals(150, lanzin.getSalud(), 0);
+		assertTrue(lanzin.isVivo());
 	}
-	
-	/**
-	 * Buscamos ver los efectos del ataque del lancero
-	 */
+
 	@Test
-	public void testeandoAtacar() {
-		
-		Assert.assertEquals( true, jose.atacar(ronaldo));
-		
-		Assert.assertEquals( 125, ronaldo.getSalud(),0);
+	public void testDaño() {
+		lanzin.atacar(lanuno);
+		assertEquals(125, lanuno.getSalud(), 0);
+
+		lanuno.atacar(lanzin);
+		assertEquals(125, lanzin.getSalud(), 0);
 	}
-	
-	/**
-	 * Buscamos ver si el lancero es capaz de atacar a su objetivo
-	 */
-	@Test
-	public void testeandoDistancias() {
-		
-		Assert.assertEquals( true, jose.atacar(ronaldo));
-		Assert.assertEquals( true, ronaldo.atacar(jose));
 
-		Assert.assertEquals( false, jose.atacar(lejano));
-		Assert.assertEquals( false, lejano.atacar(jose));
-		
-		Assert.assertEquals( true, lejano.atacar(ronaldo));
-		Assert.assertEquals( true, ronaldo.atacar(lejano));
+	@Test
+	public void testAtacar() {
+		assertTrue(lanzin.atacar(lanuno));
+		Assert.assertEquals(125, lanuno.getSalud(), 0);
 	}
-	
-	/**
-	 * Buscamos ver si el lancero es capaz de morir
-	 */
+
 	@Test
-	public void testeandoMorir() {
+	public void testDistancias() {
+		assertTrue(lanzin.atacar(lanuno));
+		assertTrue(lanuno.atacar(lanzin));
 
-		while(jose.estaVivo())
-			ronaldo.atacar(jose);
+		assertFalse(lanzin.atacar(mok));
+		assertFalse(mok.atacar(lanzin));
 
-		Assert.assertEquals( false, jose.estaVivo());
+		assertTrue(mok.atacar(lanuno));
+		assertTrue(lanuno.atacar(mok));
 	}
-	
-	/**
-	 * Buscamos ver si el lancero puede atacar si esta muerto
-	 */
+
 	@Test
-	public void testeandoMuertoAtaca() {
+	public void testMorir() {
+		while (lanzin.isVivo()) {
+			lanuno.atacar(lanzin);
+		}
+		assertFalse(lanzin.isVivo());
+	}
 
-		while(jose.estaVivo())
-			ronaldo.atacar(jose);
-
-		Assert.assertEquals( false, jose.atacar(ronaldo));
+	@Test
+	public void testZombie() {
+		while (lanzin.isVivo()) {
+			lanuno.atacar(lanzin);
+		}
+		assertFalse(lanzin.atacar(lanuno));
 	}
 }

@@ -118,7 +118,7 @@ public abstract class Unidad {
 	 * @return <b>true</b> si la unidad puede atacar.<br>
 	 *         <b>false</b> si no cumple con los requisitos. <br>
 	 */
-	protected boolean puedeAtacar(final Unidad unidad) {
+	protected boolean puedeAtacar(final Unidad unidad){
 		return true;
 	}
 

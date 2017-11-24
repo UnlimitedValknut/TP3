@@ -14,6 +14,13 @@ public class Lancero extends Unidad {
 	private static final int ATAQUE = 25;
 
 	/**
+	 * Crea un lancero en la posición cero. <br>
+	 */
+	public Lancero() {
+		super(ATAQUE, VIDA, 0);
+	}
+
+	/**
 	 * Crea a un lancero. <br>
 	 *
 	 * @param posicion
